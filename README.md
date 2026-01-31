@@ -6,10 +6,10 @@ Our team decided to make a game stealth and puzzle based escape game called [INS
 
 The game was programmed on the Unity Engine by:
 
-*Andy Liu*
-*Akash Singh Bhatia*
-*Pano Klironomos*
-*Ninian Rodriguez*
-*Sam Farnsley*
+*Andy Liu* /
+*Akash Singh Bhatia* /
+*Pano Klironomos* /
+*Ninian Rodriguez* /
+*Sam Farnsley* /
 *Nicole Sedgwick*
 
