@@ -5,10 +5,12 @@ public class UIWindow : MonoBehaviour
 {
     public GameObject window;
     public bool isOpen;
-    public UnityEvent OnWindowClose;
+    public UnityEvent OnWindowClose; //So we can have drop anim play before ui disable
+    public UnityEvent OnWindowOpen; //So we can alert mask display to be hidden
 
     public void Open()
     {
+        OnWindowOpen?.Invoke();
         window.SetActive(true);
     }
 

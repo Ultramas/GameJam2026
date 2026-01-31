@@ -36,6 +36,11 @@ public class PlayerManager : MonoBehaviour
         return curMask;
     } 
 
+    public void SetCurMask(int index)
+    {
+        curMask = inventory.GetInventory()[index];
+    }
+
     public List<Mask> GetInventory()
     {
         return inventory.GetInventory();
@@ -53,7 +58,7 @@ public class PlayerManager : MonoBehaviour
 
     public void OpenMaskSwitchUI()
     {
-        SetMoveState(false);
+        //SetMoveState(false); temporary
         UIManager.Instance.OpenWindow(SWITCH_MASK_MENU_INDEX);
     }
 

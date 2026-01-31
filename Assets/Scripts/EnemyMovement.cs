@@ -4,43 +4,93 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    
     #region ENEMY_MOVEMENT
-
-    public PlayerDetection playerDetection;
+    public Enemy manager;
     public Transform[] patrolPoints;
-    bool canMove = true;
     public float movementSpeed, waitDelay, patrolDuration;
-    public bool stopped;
+    int currentPatrolPointIndex = 0;
+    bool curPatrolDirection = true;
+    bool stopped;
+
+    IEnumerator patrolArea_coroutine;
 
     void Start()
     {
-        PatrolArea(true);
+        manager.state = Enemy.EnemyState.Patroling;
+        PatrolArea(curPatrolDirection);
     }
 
     void FixedUpdate()
     {
-        stopped = !playerDetection.canSeePlayerRightMask && playerDetection.canSeePlayer;
-        if(stopped) transform.up = (PlayerMovement.instance.transform.position - transform.position).normalized;
+        stopped = false;
+        if(manager.state == Enemy.EnemyState.Stopped) 
+        {
+            stopped = true;
+            LookAtPlayer();
+        }
+        else if(manager.state == Enemy.EnemyState.Chasing)
+        {
+            ChasePlayer();
+        }
+        else if(manager.state == Enemy.EnemyState.Patroling)
+        {
+            StartPatroling();
+        }
+    }
+    
+    public void ChasePlayer()
+    {
+        LookAtPlayer();
+        MoveTowardsPlayer();
+        StopPatroling();
+        //Camera effects, music, what have you
+    }
+
+    void StartPatroling()
+    {
+        if(patrolArea_coroutine==null)
+        {
+            PatrolArea(true);
+        }
+    }
+
+    void StopPatroling()
+    {
+        if(patrolArea_coroutine!=null)
+        {
+            StopCoroutine(patrolArea_coroutine);
+            patrolArea_coroutine=null;
+        }
+    }
+
+    public void MoveTowardsPlayer()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, PlayerManager.Instance.gameObject.transform.position, movementSpeed * Time.deltaTime);
+    }
+
+    public void LookAtPlayer()
+    {
+        transform.up = (PlayerMovement.instance.transform.position - transform.position).normalized;
     }
 
     public void PatrolArea(bool direction) //true = forward, false = backward
     {
-        if(!canMove)
-        {
-            return;
-        }
-
         Transform[] patrolPointsCopy = new Transform[patrolPoints.Length];
         System.Array.Copy(patrolPoints, patrolPointsCopy, patrolPoints.Length);
         if(!direction) System.Array.Reverse(patrolPointsCopy);
 
-        StartCoroutine(PatrolArea_Coroutine(patrolPointsCopy));
+        patrolArea_coroutine = PatrolArea_Coroutine(patrolPointsCopy);
+
+        StartCoroutine(patrolArea_coroutine);
     }
 
     IEnumerator PatrolArea_Coroutine(Transform[] arr)
     {
-        for (int i = 0; i < arr.Length; i++)
+        for (int i = currentPatrolPointIndex; i < arr.Length; i++)
         {
+            currentPatrolPointIndex = i;
+
             float timeElapsed = 0f;
             float completion = 0f;
             Vector3 start = arr[i].position;
@@ -61,12 +111,15 @@ public class EnemyMovement : MonoBehaviour
             }
         }
 
-        StartCoroutine(PatrolArea_Coroutine(arr));
+        currentPatrolPointIndex = 0;
+        patrolArea_coroutine = PatrolArea_Coroutine(arr);
+        StartCoroutine(patrolArea_coroutine);
     }
 
     void RetraceDelay()
     {
-        PatrolArea(false);
+        curPatrolDirection = false;
+        PatrolArea(curPatrolDirection);
     }
     #endregion
 }
