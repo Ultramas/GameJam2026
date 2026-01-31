@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GameZone - Gaming Community</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html{
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0d0d0d;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #222;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #ff4d4d;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #ddd;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #ff4d4d;
+    }
+
+.hero {
+  height: 100vh;                    /* full viewport height is easier for parallax feel */
+  min-height: 700px;
+  position: relative;               /* important for absolute children */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 5%;
+  background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)),
+              url('e.jpg') center/cover no-repeat fixed;   /* ← fixed = parallax */
+  background-attachment: fixed;       /* core parallax magic */
+}
+
+/* Remove the old margin hacks from h1 */
+.hero-content {
+  z-index: 2;
+  max-width: 1100px;
+  padding: 2rem;
+}
+
+    .hero-content h1 {
+      font-size: 4.5rem;
+      margin-bottom: 1rem;
+      color: white;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+    }
+
+    .hero-content p {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #ff4d4d;
+      color: white;
+      padding: 0.9rem 2.2rem;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      transition: all 0.3s;
+      margin: 0 0.8rem;
+    }
+
+    .btn:hover {
+      background: #e63939;
+      transform: translateY(-3px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #ff4d4d;
+      color: #ff4d4d;
+    }
+
+    .btn-outline:hover {
+      background: #ff4d4d;
+      color: white;
+    }
+
+    /* Container & Sections */
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 5rem 5%;
+    }
+
+    h2.section-title {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 3rem;
+      color: #ff4d4d;
+      position: relative;
+    }
+
+    h2.section-title::after {
+      content: '';
+      width: 120px;
+      height: 4px;
+      background: #ff4d4d;
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid #333;
+    }
+
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 40px rgba(255, 77, 77, 0.15);
+    }
+
+    .card-img {
+      height: 180px;
+      background: #111 no-repeat center/cover;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .card-tags {
+      margin-bottom: 0.8rem;
+    }
+
+    .tag {
+      background: #333;
+      color: #bbb;
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin-right: 0.5rem;
+    }
+
+    .tag.new { background: #ff4d4d; color: white; }
+    .tag.strategy { background: #4a90e2; }
+    .tag.racing { background: #f39c12; }
+
+    .card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .card p {
+      color: #aaa;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    /* Footer */
+    footer {
+      background: #000;
+      text-align: center;
+      padding: 3rem 1rem;
+      border-top: 1px solid #222;
+      color: #777;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 3.2rem; }
+      .nav-links { gap: 1.2rem; font-size: 0.95rem; }
+      .container { padding: 4rem 4%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+   <img src="g.png" style="width: 300px; margin-top: 00px; margin-bottom: 00px;"> <!--game logo top left-->
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Games</a></li>
+      <li><a href="#">News</a></li>
+      <li><a href="#">Tournaments</a></li>
+      <li><a href="#">Reviews</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" style="height: 5000px; display: flex; flex-direction: column;">
+    <div class="hero-content">
+      <h1 style="margin-top: -750px; margin-bottom: -50px;"><img style="width: 900px;" src="g.png"></h1>
+      <p>Join the ultimate gaming community. Discover latest games, epic tournaments, hot news and honest reviews.</p>
+      <a href="#how" class="btn">How To Play</a>
+      <a href="#" class="btn btn-outline">Join Community</a>
+      
+    </div>
+    <div class="hero-content2" id="how">
+      <h1 style="margin-top: 1000px; margin-bottom: 50px;">How To Play</h1>
+      <p>Join the ultimate gaming community. Discover latest games, epic tournaments, hot news and honest reviews.</p>
+      <a href="#" class="btn">Explore Games</a>
+      <a href="#" class="btn btn-outline">Join Community</a>
+    </div>
+    <div class="hero-content2"  id="play">
+      <h1 style="margin-top: 1000px; margin-bottom: -50px;"><img style="width: 900px;" src="g.png"></h1>
+      <p>Join the ultimate gaming community. Discover latest games, epic tournaments, hot news and honest reviews.</p>
+      <a href="#" class="btn">Explore Games</a>
+      <a href="#" class="btn btn-outline">Join Community</a>
+    </div>
+  <div class="container">
+
+    <!-- Latest News -->
+    <h2 class="section-title">Latest Lore Drop</h2>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1551103782-8b9b4a6d06d1?auto=format&fit=crop&q=80&w=800')"></div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag new">New</span>
+            <span class="tag strategy">Strategy</span>
+          </div>
+          <h3>CEO hires new VP - 'Best Exec in Years!'</h3>
+          <p>The biggest patch in years just dropped — here's what you need to know before ranked queue...</p>
+          <div class="card-meta">
+            <span>Jan 28, 2026</span>
+            <span><i class="fas fa-comment"></i> 47</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Repeat similar card structure 2–3 more times for demo -->
+
+      <div class="card">
+        <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800')"></div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag racing">Racing</span>
+          </div>
+          <h3>Next-Gen Racing Sim Announced</h3>
+          <p>Ultra-realistic physics and ray-tracing coming to consoles and PC this summer...</p>
+          <div class="card-meta">
+            <span>Jan 25, 2026</span>
+            <span><i class="fas fa-comment"></i> 19</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- You can duplicate the pattern above for other sections: -->
+    <!-- Recent Games, Tournaments, Recent Reviews -->
+
+  </div>
+  </section>
+
+  <!-- Main Content -->
+
+  <footer>
+    <p>&copy; 2026 GroundLevel Community. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
