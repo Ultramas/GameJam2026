@@ -11,7 +11,9 @@
       padding: 0;
       box-sizing: border-box;
     }
-
+    html{
+      scroll-behavior: smooth;
+    }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0d0d0d;
@@ -58,18 +60,27 @@
       color: #ff4d4d;
     }
 
-    /* Hero */
-    .hero {
-      height: 90vh;
-      min-height: 600px;
-      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                  url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 0 5%;
-    }
+.hero {
+  height: 100vh;                    /* full viewport height is easier for parallax feel */
+  min-height: 700px;
+  position: relative;               /* important for absolute children */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 5%;
+  background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)),
+              url('e.jpg') center/cover no-repeat fixed;   /* ← fixed = parallax */
+  background-attachment: fixed;       /* core parallax magic */
+}
+
+/* Remove the old margin hacks from h1 */
+.hero-content {
+  z-index: 2;
+  max-width: 1100px;
+  padding: 2rem;
+}
 
     .hero-content h1 {
       font-size: 4.5rem;
@@ -224,7 +235,7 @@
 
   <!-- Navbar -->
   <nav class="navbar">
-    <a href="#" class="logo">GameZone</a>
+   <img src="g.png" style="width: 300px; margin-top: 00px; margin-bottom: 00px;"> <!--game logo top left-->
     <ul class="nav-links">
       <li><a href="#">Home</a></li>
       <li><a href="#">Games</a></li>
@@ -236,9 +247,22 @@
   </nav>
 
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero" style="height: 5000px; display: flex; flex-direction: column;">
     <div class="hero-content">
-      <h1>Welcome to GameZone</h1>
+      <h1 style="margin-top: -750px; margin-bottom: -50px;"><img style="width: 900px;" src="g.png"></h1>
+      <p>Join the ultimate gaming community. Discover latest games, epic tournaments, hot news and honest reviews.</p>
+      <a href="#how" class="btn">How To Play</a>
+      <a href="#" class="btn btn-outline">Join Community</a>
+      
+    </div>
+    <div class="hero-content2" id="how">
+      <h1 style="margin-top: 1000px; margin-bottom: 50px;">How To Play</h1>
+      <p>Join the ultimate gaming community. Discover latest games, epic tournaments, hot news and honest reviews.</p>
+      <a href="#" class="btn">Explore Games</a>
+      <a href="#" class="btn btn-outline">Join Community</a>
+    </div>
+    <div class="hero-content2"  id="play">
+      <h1 style="margin-top: 1000px; margin-bottom: -50px;"><img style="width: 900px;" src="g.png"></h1>
       <p>Join the ultimate gaming community. Discover latest games, epic tournaments, hot news and honest reviews.</p>
       <a href="#" class="btn">Explore Games</a>
       <a href="#" class="btn btn-outline">Join Community</a>
@@ -291,7 +315,7 @@
   </div>
 
   <footer>
-    <p>&copy; 2026 GameZone Community. All rights reserved.</p>
+    <p>&copy; 2026 GroundLevel Community. All rights reserved.</p>
   </footer>
 
 </body>
