@@ -1,20 +1,23 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Events;
 
 public class PlayerDetection : MonoBehaviour
 {
+    public Enemy manager;
     public float normalIntensity = 1f;
     public float seeIntensity = 5f;
     public float detectRange = 10f;
     public float detectArc = 90f;
     public Light2D visibilityConeLight;
     public LayerMask layerMask;
-    public GameManager.MaskType myMaskType;
+   // public GameManager.MaskType myMaskType;
     public bool canSee;
     public bool canSeePlayer;
-    public bool canSeePlayerRightMask;
     public bool inArc;
 
+    public UnityEvent OnSeePlayer;
+    public UnityEvent OnLostPlayerSight;
     public void FixedUpdate()
     {
         Vector3 dir = PlayerMovement.instance.transform.position - transform.position;
@@ -26,8 +29,18 @@ public class PlayerDetection : MonoBehaviour
         inArc = Vector3.Angle(transform.up, dir) < detectArc/2f;
 
         canSeePlayer = canSee && inArc;
-        canSeePlayerRightMask = canSeePlayer && myMaskType != GameManager.Instance.currentMask;
         
         visibilityConeLight.intensity = canSeePlayer ? seeIntensity : normalIntensity;
+
+        if(canSeePlayer)
+        {
+            OnSeePlayer?.Invoke(); //Change state in manager so movement can update
+            Debug.Log("Player Spotted");
+        }
+        else
+        {
+            manager.ResetMovement();
+            OnLostPlayerSight?.Invoke();
+        }
     }
 }

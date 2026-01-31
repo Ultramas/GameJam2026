@@ -44,14 +44,14 @@ public class GameManager : MonoBehaviour
     {
         List<Mask> inventory = PlayerManager.Instance.GetInventory();
         currentMask = inventory[index];
-        if(currentMask.type==MaskType.Red) 
+        if(currentMask.type == MaskType.Red) 
         {
             playerSprite.color = Color.green;
         }
-        else if(currentMask==MaskType.Green){ 
+        else if(currentMask.type == MaskType.Green){ 
             playerSprite.color =Color.blue;
         }
-        else if(currentMask==MaskType.Blue) {
+        else if(currentMask.type == MaskType.Blue) {
             playerSprite.color = Color.red;
         }
     }
