@@ -69,11 +69,14 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)),
+  background: linear-gradient(rgba(0,0,0,0.65), rgba(0, 183, 255, 0.05)),
               url('e.jpg') center/cover no-repeat fixed;   /* ← fixed = parallax */
   background-attachment: fixed;       /* core parallax magic */
 }
-
+.heroadd{
+  
+      background: linear-gradient(rgba(0, 0, 0, 0.00), rgba(0, 128, 0, 0.05));
+}
 /* Remove the old margin hacks from h1 */
 .hero-content {
   z-index: 2;
@@ -143,7 +146,7 @@
       margin-top: 900px;;
       padding: 5rem 5%;
       width: 100%;
-      background: rgba(255, 255, 255, 0.05);
+      background: linear-gradient(rgba(255, 255, 255, 0.00), green);
     }
 
     h2.section-title {
@@ -261,8 +264,8 @@
   </nav>
 
   <!-- Hero -->
-  <section class="hero" style="height: 4400px; display: flex; flex-direction: column;">
-    <div class="hero-content">
+  <section class="hero" style="height: 5700px; display: flex; flex-direction: column;">
+    <div class="hero-content" style="margin-top: 1400px;">
       <h1 style="margin-top: -750px; margin-bottom: -50px;"><img style="width: 900px;" src="g.png"></h1>
       <p>Join the ultimate gaming community. Discover latest games, epic tournaments, hot news and honest reviews.</p>
       <a href="#how" class="btn">How To Play</a>
