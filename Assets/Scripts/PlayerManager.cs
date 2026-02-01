@@ -67,5 +67,4 @@ public class PlayerManager : MonoBehaviour
         //SetMoveState(false); temporary
         UIManager.Instance.OpenWindow(SWITCH_MASK_MENU_INDEX);
     }
-
 }
