@@ -8,7 +8,8 @@ public class EnemyMovement : MonoBehaviour
     #region ENEMY_MOVEMENT
     public Enemy manager;
     public Transform[] patrolPoints;
-    public float movementSpeed, waitDelay, patrolDuration;
+    public float chaseSpeed = 15f;
+    public float patrolSpeed = 0.25f;
     int currentPatrolPointIndex = 0;
     bool curPatrolDirection = true;
     bool stopped;
@@ -66,7 +67,7 @@ public class EnemyMovement : MonoBehaviour
 
     public void MoveTowardsPlayer()
     {
-        transform.position = Vector2.MoveTowards(transform.position, PlayerManager.Instance.gameObject.transform.position, movementSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, PlayerManager.Instance.gameObject.transform.position, chaseSpeed * Time.fixedDeltaTime);
     }
 
     public void LookAtPlayer()
@@ -95,17 +96,19 @@ public class EnemyMovement : MonoBehaviour
             float completion = 0f;
             Vector3 start = arr[i].position;
             Vector3 end = arr[(i+1) % arr.Length].position;
-            Vector3 startUp = transform.up;
-            Vector3 dir = (end - start).normalized;
+            Quaternion startUp = Quaternion.LookRotation(Vector3.forward, transform.up);
+            Quaternion dir = Quaternion.LookRotation(Vector3.forward, (end - start).normalized);
 
-            while(timeElapsed < patrolDuration)
+            float curPatrolDuration = Mathf.Max(patrolSpeed * Vector3.Distance(start, end) , 0.001f);
+
+            while(timeElapsed < curPatrolDuration)
             {
                 if(!stopped) 
                 {
                     timeElapsed += Time.deltaTime;
-                    completion = timeElapsed / patrolDuration;
+                    completion = timeElapsed / curPatrolDuration;
                     transform.position = Vector3.Lerp(start, end, completion);
-                    transform.up = Vector3.Lerp(startUp, dir, Mathf.Clamp01(completion*4));
+                    transform.rotation = Quaternion.Lerp(startUp, dir, Mathf.Clamp01(completion*4));
                 }
                 yield return null;
             }

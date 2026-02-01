@@ -8,6 +8,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private bool canMove;
     public int health = 100;
 
+    bool canPickUp;
+
     [SerializeField] private int SWITCH_MASK_MENU_INDEX; 
 
     private void Awake() 
@@ -36,9 +38,20 @@ public class PlayerManager : MonoBehaviour
         return curMask;
     } 
 
+    public void PickUpMask(Mask mask)
+    {
+        inventory.PickUpMask(mask);
+    }
+
     public void SetCurMask(int index)
     {
+        if(index == -1)
+        {
+            curMask = null;
+            return;
+        }
         curMask = inventory.GetInventory()[index];
+        curMask.StartCooldown();
     }
 
     public List<Mask> GetInventory()
@@ -61,5 +74,4 @@ public class PlayerManager : MonoBehaviour
         //SetMoveState(false); temporary
         UIManager.Instance.OpenWindow(SWITCH_MASK_MENU_INDEX);
     }
-
 }

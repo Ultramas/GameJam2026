@@ -30,7 +30,7 @@ public class DurationBar : MonoBehaviour
             })
             .setOnComplete(() =>
             {
-                OnTimeUp?.Invoke();
+                OnTimeUp?.Invoke(); //Invoke set mask null on PlayerManager
             });
     }
 }

@@ -8,6 +8,7 @@ public class CurMaskUI : MonoBehaviour
     public Image maskDisplayImage;
     public Transform normalPos, hiddenPos;
     public float animDuration;
+    Mask temp; 
 
     private void Start() 
     {
@@ -25,6 +26,12 @@ public class CurMaskUI : MonoBehaviour
 
     public void UpdateMaskDisplay()
     {
+        temp = PlayerManager.Instance.GetPlayerMask();
+        if(temp == null)
+        {
+            maskDisplayImage.sprite = null;
+            return;
+        }
         maskDisplayImage.sprite = PlayerManager.Instance.GetPlayerMask().sprite;
     }
 }

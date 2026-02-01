@@ -30,8 +30,8 @@ public class MaskSwitchUI : MonoBehaviour
     public void Setup()
     {
         masks = PlayerManager.Instance.GetInventory(); //returns a list of masks
-        curMaskIndex = PlayerManager.Instance.GetPlayerMask().GetIndex(); //get the current mask, then get it's index
-        maskDisplayImg.sprite = masks[curMaskIndex].sprite; //set the image sprtite
+        //curMaskIndex = PlayerManager.Instance.GetPlayerMask().GetIndex(); //get the current mask, then get it's index
+        //maskDisplayImg.sprite = masks[curMaskIndex].sprite; //set the image sprtite
     }
 
     void OpenAnim()
@@ -46,8 +46,10 @@ public class MaskSwitchUI : MonoBehaviour
 
     void SwitchMask(int dir)
     {
-        if(masks.Count == 0)
+        if(masks.Count <= 1)
+        {
             return;
+        }
 
         curMaskIndex = (curMaskIndex + dir + masks.Count) % masks.Count;
 
@@ -67,9 +69,19 @@ public class MaskSwitchUI : MonoBehaviour
 
     public void SelectMask()
     {
+        if(masks[curMaskIndex].isInColldown)
+        {
+            //Debug.Log("Cooling Down");
+            return;
+        }
         //SetMask on GameManager -> SetMask for player
         Debug.Log("Selecting mask.." + masks[curMaskIndex].gameObject.name);
         OnMaskSelected?.Invoke(curMaskIndex);
+    }
+
+    public void OnMaskUsed()
+    {
+        OnMaskSelected?.Invoke(-1);
     }
 
     void Update() 

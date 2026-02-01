@@ -5,9 +5,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public enum MaskType { Red,Green,Blue }
-    public int maskIndex = 0;
+    //public int maskIndex = 0;
     public SpriteRenderer playerSprite;
-    public Mask currentMask;
+    //public Mask currentMask;
 
      void Awake()
     {
@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     }
     */
 
+    /*
     public void SwitchMask(int index)
     {
         List<Mask> inventory = PlayerManager.Instance.GetInventory();
@@ -55,4 +56,5 @@ public class GameManager : MonoBehaviour
             playerSprite.color = Color.red;
         }
     }
+    */
 }
