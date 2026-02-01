@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Mask : MonoBehaviour
 {
@@ -6,10 +7,24 @@ public class Mask : MonoBehaviour
     public Sprite sprite;
     public GameManager.MaskType type;
     public float useDuration;
+    public float coolDownDuration;
+    public bool isInColldown = false;
 
     public void SetMaskIndex(int index)
     {
         maskIndex = index;
+    }
+
+    public void StartCooldown()
+    {
+        StartCoroutine(CoolDownCoroutine());
+    }
+
+    public IEnumerator CoolDownCoroutine()
+    {
+        isInColldown = true;
+        yield return new WaitForSeconds(coolDownDuration);
+        isInColldown = false;
     }
 
     public int GetIndex()

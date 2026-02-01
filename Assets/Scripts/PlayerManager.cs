@@ -38,7 +38,13 @@ public class PlayerManager : MonoBehaviour
 
     public void SetCurMask(int index)
     {
+        if(index == -1)
+        {
+            curMask = null;
+            return;
+        }
         curMask = inventory.GetInventory()[index];
+        curMask.StartCooldown();
     }
 
     public List<Mask> GetInventory()
