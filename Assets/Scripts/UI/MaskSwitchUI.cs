@@ -46,8 +46,10 @@ public class MaskSwitchUI : MonoBehaviour
 
     void SwitchMask(int dir)
     {
-        if(masks.Count == 0)
+        if(masks.Count <= 1)
+        {
             return;
+        }
 
         curMaskIndex = (curMaskIndex + dir + masks.Count) % masks.Count;
 

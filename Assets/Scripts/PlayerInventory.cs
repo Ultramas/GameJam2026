@@ -12,7 +12,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void PickUpMask(Mask mask)
     {
-        //add mask to inventory
-        //Set new index for mask
+        maskInventory.Add(mask);
+        mask.maskIndex = maskInventory.IndexOf(mask);
     }
 }
