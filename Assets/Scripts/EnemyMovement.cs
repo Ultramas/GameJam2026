@@ -25,6 +25,10 @@ public class EnemyMovement : MonoBehaviour
     void FixedUpdate()
     {
         stopped = false;
+        if(manager.state == Enemy.EnemyState.Attack)
+        {
+            stopped = true;
+        }
         if(manager.state == Enemy.EnemyState.Stopped) 
         {
             stopped = true;
